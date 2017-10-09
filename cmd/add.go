@@ -21,7 +21,9 @@ var addCmd = &cobra.Command{
 
 func add(cmd *cobra.Command, args []string) {
 	histfile := os.Getenv("HISTFILE")
-	os.OpenFile(histfile, os.O_APPEND|os.O_WRONLY, 0600)
+	f, _ := os.OpenFile(histfile, os.O_APPEND|os.O_WRONLY, 0600)
+	defer f.Close()
+
 	history, err := ioutil.ReadFile(histfile)
 
 	content := []byte("#add test")
