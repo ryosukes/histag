@@ -21,15 +21,19 @@ var addCmd = &cobra.Command{
 
 func add(cmd *cobra.Command, args []string) {
 	histfile := os.Getenv("HISTFILE")
-	f, _ := os.OpenFile(histfile, os.O_APPEND|os.O_WRONLY, 0600)
-	defer f.Close()
 
 	history, err := ioutil.ReadFile(histfile)
-
-	content := []byte("#add test")
-	ioutil.WriteFile(histfile, content, os.ModePerm)
 	if err != nil {
 		// エラー処理
 	}
-	fmt.Println(string(history))
+
+	line, _ := filter(string(history))
+
+	text := fmt.Sprintf("%s #%s", line, "add test")
+
+	file, _ := os.OpenFile(histfile, os.O_APPEND|os.O_WRONLY, 0600)
+	defer file.Close()
+
+	fmt.Fprintln(file, text)
+	fmt.Println("add command to $HISTFILE!: " + text)
 }
