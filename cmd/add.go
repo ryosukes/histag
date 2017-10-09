@@ -26,7 +26,7 @@ func add(cmd *cobra.Command, args []string) {
 
 	history, err := ioutil.ReadFile(histfile)
 	if err != nil {
-		// エラー処理
+		// TODO: error
 	}
 
 	line, _ := filter(string(history))
