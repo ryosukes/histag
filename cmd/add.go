@@ -19,6 +19,8 @@ var addCmd = &cobra.Command{
 	Run:   add,
 }
 
+var comment string
+
 func add(cmd *cobra.Command, args []string) {
 	histfile := os.Getenv("HISTFILE")
 
@@ -29,7 +31,10 @@ func add(cmd *cobra.Command, args []string) {
 
 	line, _ := filter(string(history))
 
-	text := fmt.Sprintf("%s #%s", line, "add test")
+	fmt.Println("Please enter a comment for " + "'" + line + "'")
+	fmt.Scan(&comment)
+
+	text := fmt.Sprintf("%s #%s", line, comment)
 
 	file, _ := os.OpenFile(histfile, os.O_APPEND|os.O_WRONLY, 0600)
 	defer file.Close()
