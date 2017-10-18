@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"histag/cmd"
+	"github.com/ryosukes/histag/cmd"
 )
 
 func main() {
